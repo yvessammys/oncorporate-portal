@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OnCorporate — Company Incorporation Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="lang-toggle">
+      <button class="lang-btn" data-lang="pt" onclick="setLanguage('pt')">PT</button>
+      <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+    </div>
+    <div class="header-brand">
+      <img src="logo.jpg" alt="OnCorporate" class="header-logo">
+      <div class="header-text">
+        <h1 data-i18n="header_title">OnCorporate</h1>
+        <p data-i18n="header_subtitle">Company Incorporation Portal</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROGRESS BAR -->
+  <div class="progress-container">
+    <div class="progress-steps">
+      <div class="progress-step">
+        <div class="step-circle active" data-step="1">1</div>
+        <span class="step-label" data-i18n="step_society">Company</span>
+      </div>
+      <div class="step-line" data-after="1"></div>
+      <div class="progress-step">
+        <div class="step-circle" data-step="2">2</div>
+        <span class="step-label" data-i18n="step_shareholders">Shareholders</span>
+      </div>
+      <div class="step-line" data-after="2"></div>
+      <div class="progress-step">
+        <div class="step-circle" data-step="3">3</div>
+        <span class="step-label" data-i18n="step_managers">Directors</span>
+      </div>
+      <div class="step-line" data-after="3"></div>
+      <div class="progress-step">
+        <div class="step-circle" data-step="4">4</div>
+        <span class="step-label" data-i18n="step_documents">Documents</span>
+      </div>
+      <div class="step-line" data-after="4"></div>
+      <div class="progress-step">
+        <div class="step-circle" data-step="5">5</div>
+        <span class="step-label" data-i18n="step_review">Review</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTAINER -->
+  <div class="container">
+
+    <!-- ==================== STEP 0: FLOW CHOICE ==================== -->
+    <div class="form-section active" id="step-0">
+      <h2 data-i18n="flow_title">How would you like to start?</h2>
+      <p class="subtitle" data-i18n="flow_subtitle">Choose the option that best suits you.</p>
+
+      <div class="flow-choice-container">
+        <div class="flow-card" onclick="chooseFlow('manual')">
+          <div class="flow-icon">📝</div>
+          <h3 data-i18n="flow_manual_title">Fill in Manually</h3>
+          <p data-i18n="flow_manual_desc">Fill in the data step by step. Ideal if you don't have the documents scanned yet.</p>
+        </div>
+        <div class="flow-card" onclick="chooseFlow('smart')">
+          <span class="flow-badge" data-i18n="flow_smart_badge">Recommended</span>
+          <div class="flow-icon">🤖</div>
+          <h3 data-i18n="flow_smart_title">Smart Upload</h3>
+          <p data-i18n="flow_smart_desc">Upload your documents (passport, Good Standing, etc.) and the data is extracted automatically. Faster and easier.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== SMART UPLOAD ==================== -->
+    <div class="form-section" id="step-smart-upload">
+      <h2 data-i18n="su_title">Smart Upload — Document Upload</h2>
+      <p class="subtitle" data-i18n="su_subtitle">Upload your documents and we'll extract the data automatically.</p>
+
+      <!-- Phase A: Party list -->
+      <div id="su-parties-section">
+        <div class="info-box" data-i18n="su_parties_info">First, tell us who the parties are. We'll then show you exactly which documents are needed for each one.</div>
+
+        <div id="su-parties-list"></div>
+
+        <button type="button" class="btn btn-add" onclick="addSmartUploadParty()" data-i18n="su_add_party">+ Add a person / company</button>
+      </div>
+
+      <!-- Phase B: Per-person upload categories -->
+      <div id="su-upload-categories"></div>
+
+      <!-- General uploads removed — POA and other docs are prepared by OnCorporate -->
+
+      <!-- Extraction preview -->
+      <div class="extraction-preview" id="extraction-preview" style="display:none">
+        <div class="info-box success" data-i18n="su_preview_info">The data below was extracted automatically. In the next step you can review and correct everything.</div>
+        <div id="extraction-cards"></div>
+      </div>
+
+      <div class="btn-row" style="margin-top:24px">
+        <button type="button" class="btn btn-secondary" onclick="backToFlowChoice()" data-i18n="su_back_to_choice">← Back to choice</button>
+        <button type="button" class="btn btn-primary" id="su-continue-btn" onclick="continueFromSmartUpload()" disabled data-i18n="su_continue">Continue to form →</button>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 1: SOCIETY DATA ==================== -->
+    <div class="form-section" id="step-1">
+      <h2 data-i18n="s1_title">Company Details</h2>
+      <p class="subtitle" data-i18n="s1_subtitle">Basic information about the company to be incorporated.</p>
+
+      <div class="info-box" data-i18n="s1_welcome">Welcome to our company incorporation portal. Please fill in the information below step by step. Once completed, our team will have everything needed to proceed with the process.</div>
+
+      <div class="form-group">
+        <label><span data-i18n="s1_contact">Main contact</span> <span class="required">*</span></label>
+        <input type="text" name="client_name" required data-i18n-ph="s1_contact_ph" placeholder="Name of the person filling in this form">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label><span data-i18n="s1_email">Email</span> <span class="required">*</span></label>
+          <input type="email" name="client_email" required data-i18n-ph="s1_email_ph" placeholder="email@example.com">
+          <div class="error-msg" data-i18n="s1_email_error">Please enter a valid email</div>
+        </div>
+        <div class="form-group">
+          <label data-i18n="s1_phone">Phone</label>
+          <input type="tel" name="client_phone" placeholder="+351 ...">
+        </div>
+      </div>
+
+      <hr style="margin:28px 0;border:none;border-top:1px solid #eaeaea">
+
+      <div class="form-group">
+        <label><span data-i18n="s1_names_label">Proposed company names</span> <span class="required">*</span></label>
+        <p class="hint" data-i18n="s1_names_hint">Please provide 3 name options, preferably distinct from each other. They will be submitted to the National Registry for approval.</p>
+        <div class="name-options">
+          <div class="name-option">
+            <span class="number">1</span>
+            <input type="text" name="company_name_1" required data-i18n-ph="s1_name_1" placeholder="1st name option">
+          </div>
+          <div class="name-option">
+            <span class="number">2</span>
+            <input type="text" name="company_name_2" required data-i18n-ph="s1_name_2" placeholder="2nd name option">
+          </div>
+          <div class="name-option">
+            <span class="number">3</span>
+            <input type="text" name="company_name_3" required data-i18n-ph="s1_name_3" placeholder="3rd name option">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label data-i18n="s1_activities">Brief description of company activities</label>
+        <p class="hint" data-i18n="s1_activities_hint">Briefly describe the intended business purpose. Our team will adapt it to legal language.</p>
+        <textarea name="company_activities" data-i18n-ph="s1_activities_ph" placeholder="Briefly describe the intended business purpose..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label data-i18n="s1_notes">Additional notes</label>
+        <textarea name="notes" data-i18n-ph="s1_notes_ph" placeholder="Any additional relevant information for the process (optional)"></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" class="btn btn-secondary" onclick="backToFlowChoiceFromForm()" data-i18n="su_back_to_choice">← Back to choice</button>
+        <button type="button" class="btn btn-primary" onclick="nextStep()" data-i18n="btn_next">Next →</button>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 2: SHAREHOLDERS ==================== -->
+    <div class="form-section" id="step-2">
+      <h2 data-i18n="s2_title">Shareholders</h2>
+      <p class="subtitle" data-i18n="s2_subtitle">Add all shareholders of the company to be incorporated.</p>
+
+      <div class="info-box" data-i18n="s2_info">For each shareholder, indicate whether they are an individual or a legal entity, and whether they are based in Portugal or abroad. The required fields and documents will be adjusted automatically.</div>
+
+      <div id="shareholders-container"></div>
+
+      <button type="button" class="btn btn-add" onclick="addShareholder()" data-i18n="btn_add_shareholder">+ Add another shareholder</button>
+
+      <div class="btn-row">
+        <button type="button" class="btn btn-secondary" onclick="prevStep()" data-i18n="btn_prev">← Previous</button>
+        <button type="button" class="btn btn-primary" onclick="nextStep()" data-i18n="btn_next">Next →</button>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 3: MANAGERS ==================== -->
+    <div class="form-section" id="step-3">
+      <h2 data-i18n="s3_title">Directors / Managers</h2>
+      <p class="subtitle" data-i18n="s3_subtitle">Indicate who will be appointed as director of the company.</p>
+
+      <div class="info-box" data-i18n="s3_info">The director(s) represent and manage the company. If the director does not have a Portuguese NIF, it will need to be obtained before incorporation.</div>
+
+      <div id="managers-container"></div>
+
+      <button type="button" class="btn btn-add" onclick="addManager()" data-i18n="btn_add_manager">+ Add another director</button>
+
+      <!-- Company representation question (shown when 2+ managers) -->
+      <div id="representation-section" class="entity-card" style="display:none">
+        <h3 data-i18n="s3_representation_title">How should the company be represented?</h3>
+        <p class="hint" data-i18n="s3_representation_hint">Select how many directors are required to sign on behalf of the company.</p>
+        <div class="form-group">
+          <select name="company_representation" id="company-representation-select">
+          </select>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" class="btn btn-secondary" onclick="prevStep()" data-i18n="btn_prev">← Previous</button>
+        <button type="button" class="btn btn-primary" onclick="nextStep()" data-i18n="btn_next">Next →</button>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 4: ADDITIONAL DOCUMENTS (optional) ==================== -->
+    <div class="form-section" id="step-4">
+      <h2 data-i18n="s4_title_simple">Additional Documents</h2>
+      <p class="subtitle" data-i18n="s4_subtitle_simple">If you have any additional documents you consider relevant, you can upload them here.</p>
+
+      <div class="info-box success" data-i18n="s4_info_simple">This step is optional. Identification documents have already been associated in the previous steps.</div>
+
+      <div id="uploads-container">
+        <div class="entity-card">
+          <div class="form-group">
+            <label data-i18n="doc_additional_1">Additional document 1</label>
+            <div class="file-upload">
+              <input type="file" name="additional_doc_1" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+              <div class="upload-icon">📄</div>
+              <div class="upload-text" data-i18n="doc_upload_text">Click to select file (PDF, JPG, PNG, DOC)</div>
+              <div class="file-name"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label data-i18n="doc_additional_2">Additional document 2</label>
+            <div class="file-upload">
+              <input type="file" name="additional_doc_2" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+              <div class="upload-icon">📄</div>
+              <div class="upload-text" data-i18n="doc_upload_text">Click to select file (PDF, JPG, PNG, DOC)</div>
+              <div class="file-name"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label data-i18n="doc_additional_3">Additional document 3</label>
+            <div class="file-upload">
+              <input type="file" name="additional_doc_3" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+              <div class="upload-icon">📄</div>
+              <div class="upload-text" data-i18n="doc_upload_text">Click to select file (PDF, JPG, PNG, DOC)</div>
+              <div class="file-name"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" class="btn btn-secondary" onclick="prevStep()" data-i18n="btn_prev">← Previous</button>
+        <button type="button" class="btn btn-primary" onclick="nextStep()" data-i18n="btn_review">Review & Submit →</button>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 5: REVIEW ==================== -->
+    <div class="form-section" id="step-5">
+      <h2 data-i18n="s5_title">Final Review</h2>
+      <p class="subtitle" data-i18n="s5_subtitle">Please verify all information before submitting.</p>
+
+      <div id="review-container"></div>
+
+      <div class="info-box success" data-i18n="s5_success_info">Upon submission, our team will receive all information and documents. You will be contacted shortly with the next steps.</div>
+
+      <div class="btn-row">
+        <button type="button" class="btn btn-secondary" onclick="prevStep()" data-i18n="btn_prev">← Previous</button>
+        <button type="button" class="btn btn-success" onclick="submitForm()" data-i18n="btn_submit">Submit Form ✓</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p>&copy; 2026 <strong>OnCorporate</strong> — Company Incorporation Services</p>
+  </footer>
+
+  <!-- LOADING OVERLAY -->
+  <div class="overlay" id="loading-overlay">
+    <div class="overlay-box">
+      <div class="spinner"></div>
+      <h2 data-i18n="loading_title">Submitting...</h2>
+      <p style="color:#78716c;margin-top:10px" data-i18n="loading_text">Please wait while we process your data and documents.</p>
+    </div>
+  </div>
+
+  <!-- SUCCESS OVERLAY -->
+  <div class="overlay" id="success-overlay">
+    <div class="overlay-box">
+      <div class="success-icon">✓</div>
+      <h2 data-i18n="success_title">Form Successfully Submitted!</h2>
+      <p style="color:#78716c;margin-top:14px;line-height:1.6" data-i18n="success_text">Our team has received all the information. You will be contacted shortly with the next steps of the incorporation process.</p>
+      <p style="color:#a8a29e;margin-top:18px;font-size:.85rem" data-i18n="success_close">You may close this page.</p>
+    </div>
+  </div>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
