@@ -51,7 +51,7 @@ const translations = {
   btn_next: { pt: 'Seguinte →', en: 'Next →' },
   btn_prev: { pt: '← Anterior', en: '← Previous' },
   btn_review: { pt: 'Revisar e Submeter →', en: 'Review & Submit →' },
-  btn_submit: { pt: 'Submeter Formulário ✓', en: 'Submit Form ✓' },
+  btn_submit: { pt: 'Submeter Formulário', en: 'Submit Form' },
 
   // Step 2 — Shareholders
   s2_title: { pt: 'Sócios / Acionistas', en: 'Shareholders' },
@@ -141,8 +141,8 @@ const translations = {
   f_nif: { pt: 'NIF/NIPC', en: 'NIF/NIPC (Tax number)' },
   f_nif_ph: { pt: 'Número de contribuinte português', en: 'Portuguese tax identification number' },
   nif_warning: {
-    pt: '⚠ Será necessário solicitar o NIF/NIPC antes da constituição. Este serviço tem um custo de <strong>€250</strong>. Os documentos necessários serão preparados pela nossa equipa.',
-    en: '⚠ A NIF/NIPC will need to be requested before incorporation. This service has a cost of <strong>€250</strong>. The necessary documents will be prepared by our team.'
+    pt: 'Será necessário solicitar o NIF/NIPC antes da constituição. Este serviço tem um custo de <strong>€250</strong>. Os documentos necessários serão preparados pela nossa equipa.',
+    en: 'A NIF/NIPC will need to be requested before incorporation. This service has a cost of <strong>€250</strong>. The necessary documents will be prepared by our team.'
   },
   rep_fiscal_info_manager: {
     pt: 'A representação fiscal é obrigatória para gerentes não residentes em Portugal. Este serviço tem um custo anual de <strong>€500</strong>.',
@@ -176,8 +176,8 @@ const translations = {
   mg_has_nif: { pt: 'Tem NIF português?', en: 'Do you have a Portuguese NIF?' },
   mg_nif: { pt: 'NIF', en: 'NIF (Tax number)' },
   mg_nif_warning: {
-    pt: '⚠ Será necessário solicitar o NIF antes da constituição. Este serviço tem um custo de <strong>€250</strong>. Os documentos serão preparados pela nossa equipa.',
-    en: '⚠ A NIF will need to be requested before incorporation. This service has a cost of <strong>€250</strong>. The documents will be prepared by our team.'
+    pt: 'Será necessário solicitar o NIF antes da constituição. Este serviço tem um custo de <strong>€250</strong>. Os documentos serão preparados pela nossa equipa.',
+    en: 'A NIF will need to be requested before incorporation. This service has a cost of <strong>€250</strong>. The documents will be prepared by our team.'
   },
 
   // Step 4 — Documents

@@ -1320,7 +1320,7 @@ async function handleCategoryFiles(zone, fileList) {
     item.className = 'su-file-item';
     item.id = itemId;
     item.innerHTML = `
-      <span>${'📄'}</span>
+      <span></span>
       <span class="su-file-name">${escapeHtml(file.name)}</span>
       <span class="su-file-status extracting">${t('su_status_extracting')}</span>
       <div class="su-file-spinner"></div>
