@@ -1,0 +1,65 @@
+{
+  "submission_date": "2026-03-20T14:32:00.000Z",
+  "language": "en",
+
+  "client_name": "Guto Requena",
+  "client_email": "guto@requenadesign.co.uk",
+  "client_phone": "+44 7911 234567",
+
+  "company_name_1": "Requena Design, Unipessoal Lda",
+  "company_name_2": "Requena Studio Portugal, Unipessoal Lda",
+  "company_name_3": "RQ Architecture & Design, Unipessoal Lda",
+
+  "notes": "IFICI regime. The company will provide architecture and interior design services. Director will travel frequently to Portugal.",
+
+  "shareholder_1": {
+    "type": "corporate",
+    "residence": "foreign",
+    "corp_name": "Requena Design Ltd",
+    "corp_type": "Private Limited Company",
+    "corp_country": "United Kingdom",
+    "corp_reg": "15832947",
+    "corp_address": "45 Shoreditch High Street, London, E1 6JE, United Kingdom",
+    "corp_representative": "Augusto Requena",
+    "has_nif": false,
+    "nif": null,
+    "rep_fiscal": "oncorporate"
+  },
+
+  "manager_1": {
+    "name": "Mariana Ferreira Lopes",
+    "nationality": "Brazilian",
+    "birthplace": "São Paulo, Brazil",
+    "dob": "1989-06-14",
+    "civil_status": "solteiro",
+    "doc_type": "passport",
+    "doc_number": "FX924817",
+    "doc_issuer": "DPF - Departamento de Polícia Federal",
+    "doc_issue": "2023-02-10",
+    "doc_expiry": "2033-02-10",
+    "address": "Flat 7, 12 Brick Lane, London, E1 6RF, United Kingdom",
+    "residence": "foreign",
+    "has_nif": false,
+    "nif": null,
+    "rep_fiscal": "oncorporate"
+  },
+
+  "required_documents": [
+    "Pacto Social",
+    "Checklist de Constituição",
+    "POA para Constituição (Procuração)",
+    "POA para RNPC (pedido de NIPC)",
+    "Certificação/Tradução do Good Standing",
+    "Procuração para pedido de NIPC — Requena Design Ltd",
+    "Procuração para pedido de NIF — Mariana Ferreira Lopes",
+    "Nomeação de representante fiscal — Mariana Ferreira Lopes",
+    "Carta de aceitação representação fiscal — Mariana Ferreira Lopes",
+    "Carta de aceitação do gerente — Mariana Ferreira Lopes"
+  ],
+
+  "estimated_costs": [
+    { "description": "NIPC request — Requena Design Ltd", "amount": 250, "recurring": false },
+    { "description": "NIF request — Mariana Ferreira Lopes", "amount": 250, "recurring": false },
+    { "description": "Fiscal representation — Mariana Ferreira Lopes", "amount": 500, "recurring": true }
+  ]
+}
