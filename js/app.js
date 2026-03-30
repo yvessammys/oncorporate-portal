@@ -352,6 +352,55 @@ function buildShareholderHTML(id) {
       </div>
     </div>
 
+    <!-- UBO section (corporate only) -->
+    <div id="sh-ubo-section-${id}" class="conditional">
+      <hr style="margin:20px 0;border:none;border-top:1px solid #eaeaea">
+      <h4 style="margin-bottom:12px;color:#6C3CE1;font-size:.9rem">${t('s2_ubo_title')}</h4>
+      <div class="info-box">${t('s2_ubo_info')}</div>
+      ${buildInlineUpload('sh_ubo', id, 'passport')}
+      <div class="form-row">
+        <div class="form-group">
+          <label>${t('f_ubo_name')} <span class="required">*</span></label>
+          <input type="text" name="sh_ubo_name_${id}" placeholder="${t('f_ubo_name')}">
+        </div>
+        <div class="form-group">
+          <label>${t('f_ubo_dob')}</label>
+          <input type="date" name="sh_ubo_dob_${id}">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>${t('f_ubo_doc_number')}</label>
+          <input type="text" name="sh_ubo_doc_number_${id}" placeholder="${t('f_ubo_doc_number')}">
+        </div>
+        <div class="form-group">
+          <label>${t('f_ubo_nationality')}</label>
+          <input type="text" name="sh_ubo_nationality_${id}" placeholder="${t('f_ubo_nationality')}">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>${t('f_ubo_birthplace')}</label>
+          <input type="text" name="sh_ubo_birthplace_${id}" placeholder="${t('f_ubo_birthplace')}">
+        </div>
+        <div class="form-group">
+          <label>${t('f_ubo_nif_pt')}</label>
+          <input type="text" name="sh_ubo_nif_pt_${id}" placeholder="${t('f_ubo_nif_pt')}" maxlength="9">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>${t('f_ubo_nif_foreign')}</label>
+          <input type="text" name="sh_ubo_nif_foreign_${id}" placeholder="${t('f_ubo_nif_foreign')}">
+        </div>
+        <div class="form-group"></div>
+      </div>
+      <div class="form-group">
+        <label>${t('f_ubo_address')} <span class="required">*</span></label>
+        <input type="text" name="sh_ubo_address_${id}" placeholder="${t('f_ubo_address')}">
+      </div>
+    </div>
+
     <!-- NIF section -->
     <div id="sh-nif-section-${id}" class="conditional">
       <div class="form-group">
@@ -391,9 +440,11 @@ function onShareholderTypeChange(id) {
   const indDiv = document.getElementById(`sh-individual-${id}`);
   const corpDiv = document.getElementById(`sh-corporate-${id}`);
   const nifSection = document.getElementById(`sh-nif-section-${id}`);
+  const uboSection = document.getElementById(`sh-ubo-section-${id}`);
 
   indDiv.classList.toggle('visible', type === 'individual');
   corpDiv.classList.toggle('visible', type === 'corporate');
+  uboSection.classList.toggle('visible', type === 'corporate');
   nifSection.classList.add('visible');
 
   // Update NIF label based on type (individual vs corporate)
@@ -404,11 +455,15 @@ function onShareholderTypeChange(id) {
 
   toggleRequired(indDiv, type === 'individual');
   toggleRequired(corpDiv, type === 'corporate');
+  toggleRequired(uboSection, type === 'corporate');
 
   updateBadge(id);
   // Re-init upload zone for the visible section
   initInlineUpload('sh', id);
-  if (type === 'corporate') initInlineUpload('sh_rep', id);
+  if (type === 'corporate') {
+    initInlineUpload('sh_rep', id);
+    initInlineUpload('sh_ubo', id);
+  }
 }
 
 function onShareholderResidenceChange(id) {
@@ -801,6 +856,16 @@ function buildReview() {
       html += reviewRow(t('r_corp_rep_passport'), getFieldValue(card, `sh_corp_representative_passport_${id}`), `sh_corp_representative_passport_${id}`);
       html += reviewRow(t('r_corp_rep_nationality'), getFieldValue(card, `sh_corp_representative_nationality_${id}`), `sh_corp_representative_nationality_${id}`);
       html += reviewRow(t('r_corp_rep_address'), getFieldValue(card, `sh_corp_representative_address_${id}`), `sh_corp_representative_address_${id}`);
+      // UBO fields
+      html += `<div style="margin-top:8px;padding-top:8px;border-top:1px solid #eaeaea"><strong style="color:#6C3CE1;font-size:.85rem">${t('s2_ubo_title')}</strong></div>`;
+      html += reviewRow(t('f_ubo_name'), getFieldValue(card, `sh_ubo_name_${id}`), `sh_ubo_name_${id}`);
+      html += reviewRow(t('f_ubo_dob'), getFieldValue(card, `sh_ubo_dob_${id}`), `sh_ubo_dob_${id}`);
+      html += reviewRow(t('f_ubo_doc_number'), getFieldValue(card, `sh_ubo_doc_number_${id}`), `sh_ubo_doc_number_${id}`);
+      html += reviewRow(t('f_ubo_nif_pt'), getFieldValue(card, `sh_ubo_nif_pt_${id}`), `sh_ubo_nif_pt_${id}`);
+      html += reviewRow(t('f_ubo_nif_foreign'), getFieldValue(card, `sh_ubo_nif_foreign_${id}`), `sh_ubo_nif_foreign_${id}`);
+      html += reviewRow(t('f_ubo_nationality'), getFieldValue(card, `sh_ubo_nationality_${id}`), `sh_ubo_nationality_${id}`);
+      html += reviewRow(t('f_ubo_birthplace'), getFieldValue(card, `sh_ubo_birthplace_${id}`), `sh_ubo_birthplace_${id}`);
+      html += reviewRow(t('f_ubo_address'), getFieldValue(card, `sh_ubo_address_${id}`), `sh_ubo_address_${id}`);
     }
     html += reviewRow(t('r_residence'), residence === 'portugal' ? t('r_portugal') : t('r_foreign'));
     html += reviewRow(t('r_nif'), hasNif === 'yes' ? getFieldValue(card, `sh_nif_${id}`) : '', hasNif === 'yes' ? `sh_nif_${id}` : null);
@@ -1552,6 +1617,9 @@ function buildInlineUpload(entityType, id, docType) {
   if (entityType === 'sh_rep') {
     titleKey = 'f_corp_rep_upload';
     hintKey = 'f_corp_rep_upload_hint';
+  } else if (entityType === 'sh_ubo') {
+    titleKey = 'f_ubo_upload';
+    hintKey = 'f_ubo_upload_hint';
   } else if (docType === 'corporate') {
     titleKey = 'sh_upload_corp_doc';
     hintKey = 'sh_upload_corp_hint';
@@ -1586,7 +1654,7 @@ function buildInlineUpload(entityType, id, docType) {
 
 function initInlineUpload(entityType, id) {
   // Initialize all dropzones for this entity (individual + corporate for shareholders)
-  var cardId = entityType === 'sh' || entityType === 'sh_rep' ? 'shareholder' : 'manager';
+  var cardId = entityType === 'sh' || entityType === 'sh_rep' || entityType === 'sh_ubo' ? 'shareholder' : 'manager';
   const card = document.getElementById(`${cardId}-${id}`);
   if (!card) return;
   card.querySelectorAll('.su-category-zone').forEach(zone => {
@@ -1685,6 +1753,12 @@ async function handleInlineUpload(zone, file) {
           setFieldIfExists(`sh_corp_representative_passport_${entityId}`, fields.document_number);
           setFieldIfExists(`sh_corp_representative_nationality_${entityId}`, fields.nationality);
           setFieldIfExists(`sh_corp_representative_address_${entityId}`, fields.address);
+        } else if (entityType === 'sh_ubo') {
+          setFieldIfExists(`sh_ubo_name_${entityId}`, fields.full_name);
+          setFieldIfExists(`sh_ubo_doc_number_${entityId}`, fields.document_number);
+          setFieldIfExists(`sh_ubo_nationality_${entityId}`, fields.nationality);
+          setFieldIfExists(`sh_ubo_birthplace_${entityId}`, fields.place_of_birth);
+          setFieldIfExists(`sh_ubo_address_${entityId}`, fields.address);
         } else if (entityType === 'mg' && docType === 'proof_of_address') {
           // Proof of address — only fill address field
           setFieldIfExists(`mg_address_${entityId}`, fields.address);

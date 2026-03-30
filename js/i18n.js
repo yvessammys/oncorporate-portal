@@ -114,6 +114,23 @@ const translations = {
   f_corp_rep_address: { pt: 'Morada do representante', en: 'Representative address' },
   f_corp_rep_address_ph: { pt: 'Morada completa do representante legal', en: 'Full address of legal representative' },
 
+  // UBO section
+  s2_ubo_title: { pt: 'Beneficiário Efetivo (UBO)', en: 'Ultimate Beneficial Owner (UBO)' },
+  s2_ubo_info: {
+    pt: 'Para efeitos do RCBE, identifique a pessoa singular que detém, direta ou indiretamente, mais de 25% do capital social da sociedade.',
+    en: 'For RCBE purposes, please identify the natural person who ultimately owns or controls more than 25% of the company\'s capital.'
+  },
+  f_ubo_name: { pt: 'Nome completo do beneficiário efetivo', en: 'Full name of the ultimate beneficial owner' },
+  f_ubo_dob: { pt: 'Data de nascimento', en: 'Date of birth' },
+  f_ubo_doc_number: { pt: 'Nº documento de identificação', en: 'ID document number' },
+  f_ubo_nif_pt: { pt: 'NIF português (se aplicável)', en: 'Portuguese NIF (if applicable)' },
+  f_ubo_nif_foreign: { pt: 'Nº identificação fiscal estrangeiro', en: 'Foreign tax ID number' },
+  f_ubo_nationality: { pt: 'Nacionalidade', en: 'Nationality' },
+  f_ubo_birthplace: { pt: 'Naturalidade', en: 'Place of birth' },
+  f_ubo_address: { pt: 'Morada completa de residência', en: 'Full residential address' },
+  f_ubo_upload: { pt: 'Upload do documento de identificação do beneficiário', en: 'Upload beneficial owner\'s ID document' },
+  f_ubo_upload_hint: { pt: 'Passaporte ou documento de identificação — os dados serão preenchidos automaticamente', en: 'Passport or ID document — data will be filled in automatically' },
+
   // NIF section
   f_has_nif: { pt: 'Tem NIF/NIPC português?', en: 'Do you have a Portuguese tax number (NIF/NIPC)?' },
   f_has_nif_corp: { pt: 'A empresa tem NIPC português?', en: 'Does the company have a Portuguese NIPC (tax number)?' },
